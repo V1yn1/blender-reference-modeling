@@ -1,0 +1,42 @@
+{
+  "_comment": "Copy to <work>/spec.json and fill from the reference images BEFORE modeling. Remove keys starting with _ if you like (they are ignored).",
+  "name": "Example pistol",
+  "units": "meters",
+  "stylized_scale": false,
+  "collection": null,
+  "_collection": "optional: only verify objects inside this collection (e.g. 'Model'); null = whole scene",
+  "dimensions": [0.032, 0.205, 0.140],
+  "_dimensions": "overall bounding box [X width, Y depth, Z height] in meters, measured from the orthographic refs",
+  "dimension_tolerance": 0.02,
+  "contact_tolerance": null,
+  "_contact_tolerance": "max gap (m) that still counts as touching for the floating-part check; null = 0.2% of model size",
+  "parts": [
+    {"name": "Slide", "count": 1, "color": "#2a2a2a", "views": ["all"], "notes": "serrations at the rear: 9 grooves each side"},
+    {"name": "Frame", "count": 1, "color": "#1e1e1e", "views": ["all"]},
+    {"name": "Barrel", "count": 1, "color": "#8a8a8a", "views": ["front", "top", "right", "left"]},
+    {"name": "GripPanel*", "pattern": "GripPanel*", "count": 2, "color": "#5a3a22", "notes": "left + right wood panels"},
+    {"name": "GripScrew*", "pattern": "GripScrew*", "count": 4, "color": "#b0b0b0"},
+    {"name": "Trigger", "count": 1},
+    {"name": "TriggerGuard", "count": 1},
+    {"name": "FrontSight", "count": 1},
+    {"name": "RearSight", "count": 1}
+  ],
+  "_parts": "every visible piece. 'pattern' is an fnmatch glob on object names; 'count' = number of matching objects (or set count_islands: true to count mesh islands inside one object). 'color' is checked against untextured materials.",
+  "allowed_intersections": [
+    {"a": "GripScrew*", "b": "GripPanel*", "reason": "screw shanks sunk into panels, hidden"}
+  ],
+  "intentionally_separate": [],
+  "_intentionally_separate": "object name globs allowed to float apart from the main body (e.g. a detached magazine shown next to the gun)",
+  "weapon": {
+    "type": "pistol",
+    "_type": "pistol|smg|rifle|shotgun|knife|dagger|sword|greatsword|katana|axe|greataxe|hammer|mace|spear|staff|bow|tool|other",
+    "hands": 1,
+    "grip_part": "Frame",
+    "grip_point": "GripPoint",
+    "_grip_point": "an Empty placed at the centre of the hand position, oriented with the weapon",
+    "forward_axis": "-Y",
+    "grip_axis": "Z",
+    "hand_clearance_allowed": ["Trigger*", "TriggerGuard*", "GripPanel*", "GripScrew*"]
+  },
+  "_weapon": "set to null for non-hand-held objects"
+}
